@@ -102,8 +102,12 @@ final class XPCHelperClient: NSObject {
             let service = await MainActor.run {
                 ensureRemoteService()
             }
-            try? await service.withService { service in
-                service.requestAccessibilityAuthorization()
+            do {
+                try await service.withService { service in
+                    service.requestAccessibilityAuthorization()
+                }
+            } catch {
+                NSLog("[XPCHelperClient] requestAccessibilityAuthorization XPC error: \(error)")
             }
         }
     }
@@ -123,6 +127,7 @@ final class XPCHelperClient: NSObject {
             }
             return result
         } catch {
+            NSLog("[XPCHelperClient] isAccessibilityAuthorized XPC error: \(error)")
             return false
         }
     }
@@ -137,11 +142,31 @@ final class XPCHelperClient: NSObject {
                     continuation.resume(returning: authorized)
                 }
             }
+            // XPC helper 的 ensureAccessibilityAuthorization 只等了 0.5s，
+            // macOS TCC 数据库更新可能还没完成。如果首次检查失败且触发了授权弹窗，
+            // 轮询重试几次等待 TCC 更新。
+            if !result && promptIfNeeded {
+                for _ in 0..<5 {
+                    try await Task.sleep(for: .seconds(1.0))
+                    let recheck: Bool = try await service.withContinuation { service, continuation in
+                        service.isAccessibilityAuthorized { authorized in
+                            continuation.resume(returning: authorized)
+                        }
+                    }
+                    if recheck {
+                        await MainActor.run {
+                            notifyAuthorizationChange(true)
+                        }
+                        return true
+                    }
+                }
+            }
             await MainActor.run {
                 notifyAuthorizationChange(result)
             }
             return result
         } catch {
+            NSLog("[XPCHelperClient] ensureAccessibilityAuthorization XPC error: \(error)")
             return false
         }
     }

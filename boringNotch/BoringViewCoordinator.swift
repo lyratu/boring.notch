@@ -166,11 +166,11 @@ class BoringViewCoordinator: ObservableObject {
 
             if Defaults[.hudReplacement] {
                 let authorized = await XPCHelperClient.shared.isAccessibilityAuthorized()
-                if !authorized {
-                    Defaults[.hudReplacement] = false
-                } else {
+                if authorized {
                     await MediaKeyInterceptor.shared.start(promptIfNeeded: false)
                 }
+                // 不在启动时重置 hudReplacement —— XPC 可能还没准备好，
+                // 导致误判为未授权。用户的偏好设置应被保留。
             }
         }
     }

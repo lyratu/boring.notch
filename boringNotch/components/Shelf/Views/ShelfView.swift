@@ -20,9 +20,6 @@ struct ShelfView: View {
             FileShareView()
                 .aspectRatio(1, contentMode: .fit)
                 .environmentObject(vm)
-            // 点击切换到剪切板历史页面
-            ClipboardButton()
-                .aspectRatio(1, contentMode: .fit)
             panel
                 .onDrop(of: [.fileURL, .url, .utf8PlainText, .plainText, .data], isTargeted: $vm.dragDetectorTargeting) { providers in
                     handleDrop(providers: providers)
