@@ -165,12 +165,14 @@ class BoringViewCoordinator: ObservableObject {
             helloAnimationRunning = firstLaunch
 
             if Defaults[.hudReplacement] {
+                // 给 XPC helper 一些启动时间，避免因启动慢而误判
+                try? await Task.sleep(for: .seconds(1.0))
                 let authorized = await XPCHelperClient.shared.isAccessibilityAuthorized()
-                if authorized {
+                if !authorized {
+                    Defaults[.hudReplacement] = false
+                } else {
                     await MediaKeyInterceptor.shared.start(promptIfNeeded: false)
                 }
-                // 不在启动时重置 hudReplacement —— XPC 可能还没准备好，
-                // 导致误判为未授权。用户的偏好设置应被保留。
             }
         }
     }
