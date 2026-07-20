@@ -48,7 +48,12 @@ struct CameraPreviewView: View {
                 handleCameraTap()
             }
             .onDisappear {
-                webcamManager.stopSession()
+                // 仅当用户通过 toggleCameraPreview() 主动关闭摄像头时才停止 session。
+                // 如果 isCameraExpanded 仍为 true，说明是 notch 关闭导致的视图消失，
+                // 不应在此停止 session，避免与后续 startSession() 产生竞态。
+                if !vm.isCameraExpanded {
+                    webcamManager.stopSession()
+                }
             }
         }
         .aspectRatio(1, contentMode: .fit)
@@ -63,8 +68,10 @@ struct CameraPreviewView: View {
         case .authorized:
             if webcamManager.isSessionRunning {
                 webcamManager.stopSession()
+                vm.isCameraExpanded = false
             } else if webcamManager.cameraAvailable {
                 webcamManager.startSession()
+                vm.isCameraExpanded = true
             }
         case .denied, .restricted:
             DispatchQueue.main.async {

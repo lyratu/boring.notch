@@ -83,6 +83,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
             screenUnlockedObserver = nil
         }
         MusicManager.shared.destroy()
+        ClipboardHistoryManager.shared.stopMonitoring()
         cleanupDragDetectors()
         cleanupWindows()
         XPCHelperClient.shared.stopMonitoringAccessibilityAuthorization()
@@ -421,6 +422,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         }
 
         setupDragDetectors()
+
+        // 启动剪切板历史监听
+        ClipboardHistoryManager.shared.startMonitoring()
+        KeyboardShortcuts.onKeyDown(for: .clipboardHistoryPanel) {
+            withAnimation(.smooth) {
+                BoringViewCoordinator.shared.currentView = .clipboard
+            }
+        }
 
         if coordinator.firstLaunch {
             DispatchQueue.main.async {

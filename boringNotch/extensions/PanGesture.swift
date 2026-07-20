@@ -116,6 +116,20 @@ private struct ScrollMonitor: NSViewRepresentable {
                 return
             }
 
+            // 如果滚轮事件落在某个 NSScrollView 内（如 ShelfView 的水平滚动列表、
+            // ClipboardHistoryView 的垂直滚动列表），说明这是内容区自身的滚动，
+            // 不应触发 notch 开合手势。同时重置已积累的状态，防止惯性滚动阶段
+            // 积累的值泄漏到后续非 ScrollView 事件中导致误触发。
+            if isEventInsideInnerScrollView(event) {
+                if active {
+                    action(accumulated.magnitude, .ended)
+                }
+                active = false
+                accumulated = 0
+                endTask?.cancel()
+                return
+            }
+
             // Only consider scroll events that are primarily along the configured axis.
             let absDX = abs(event.scrollingDeltaX)
             let absDY = abs(event.scrollingDeltaY)
@@ -140,6 +154,20 @@ private struct ScrollMonitor: NSViewRepresentable {
             }
             // Schedule a timeout to end the gesture if no further scroll events arrive.
             scheduleEndTimeout()
+        }
+
+        /// 判断滚轮事件是否落在某个 NSScrollView 内部（如 ShelfView 的水平滚动列表），
+        /// 如果是，说明是内容区自身的滚动，不应触发 notch 手势
+        private func isEventInsideInnerScrollView(_ event: NSEvent) -> Bool {
+            guard let window = event.window,
+                  let contentView = window.contentView else { return false }
+            let loc = contentView.convert(event.locationInWindow, from: nil)
+            var hit = contentView.hitTest(loc)
+            while let view = hit {
+                if let _ = view as? NSScrollView { return true }
+                hit = view.superview
+            }
+            return false
         }
     }
 }

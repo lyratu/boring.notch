@@ -206,6 +206,7 @@ class BoringViewModel: NSObject, ObservableObject {
         self.closedNotchSize = self.notchSize
         self.notchState = .closed
         self.isBatteryPopoverActive = false
+        self.isCameraExpanded = false
         self.coordinator.sneakPeek.show = false
         self.edgeAutoOpenActive = false
 

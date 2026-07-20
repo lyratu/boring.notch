@@ -5202,6 +5202,9 @@
         }
       }
     },
+    "Clear All" : {
+
+    },
     "Clear slot" : {
       "localizations" : {
         "ar" : {
@@ -5301,6 +5304,12 @@
           }
         }
       }
+    },
+    "Clipboard" : {
+
+    },
+    "Clipboard History" : {
+
     },
     "Close" : {
       "localizations" : {
@@ -6101,6 +6110,9 @@
           }
         }
       }
+    },
+    "Copy something to get started" : {
+
     },
     "Corner radius scaling" : {
       "localizations" : {
@@ -14508,6 +14520,9 @@
           }
         }
       }
+    },
+    "No clipboard history" : {
+
     },
     "No custom animation available" : {
       "localizations" : {
@@ -23614,6 +23629,12 @@
           }
         }
       }
+    },
+    "删除" : {
+
+    },
+    "复制" : {
+
     }
   },
   "version" : "1.0"

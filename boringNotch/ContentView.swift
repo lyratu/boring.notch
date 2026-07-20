@@ -349,6 +349,8 @@ struct ContentView: View {
                         NotchHomeView(albumArtNamespace: albumArtNamespace)
                     case .shelf:
                         ShelfView()
+                    case .clipboard:
+                        ClipboardHistoryView()
                     }
                 }
                 .transition(
@@ -584,6 +586,10 @@ struct ContentView: View {
 
     private func handleUpGesture(translation: CGFloat, phase: NSEvent.Phase) {
         guard vm.notchState == .open && !vm.isHoveringCalendar else { return }
+
+        // 剪切板 tab 有垂直滚动列表，滚轮事件会与关闭手势冲突，
+        // 当该 tab 处于活跃状态时跳过关闭手势
+        if coordinator.currentView == .clipboard { return }
 
         withAnimation(animationSpring) {
             gestureProgress = (translation / Defaults[.gestureSensitivity]) * -20

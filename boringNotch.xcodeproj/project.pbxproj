@@ -143,6 +143,12 @@
 		B1F747F92EC7E94000F841DB /* LottieView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1F747F82EC7E94000F841DB /* LottieView.swift */; };
 		B1FEB4992C7686630066EBBC /* PanGesture.swift in Sources */ = {isa = PBXBuildFile; fileRef = B1FEB4982C7686630066EBBC /* PanGesture.swift */; };
 		F38DE6482D8243E7008B5C6D /* BatteryActivityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F38DE6472D8243E2008B5C6D /* BatteryActivityManager.swift */; };
+		CC0000012E900001000CLIP01 /* ClipboardItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0000022E900001000CLIP01 /* ClipboardItem.swift */; };
+		CC0000032E900001000CLIP02 /* ClipboardPersistenceService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0000042E900001000CLIP02 /* ClipboardPersistenceService.swift */; };
+		CC0000052E900001000CLIP03 /* ClipboardHistoryManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0000062E900001000CLIP03 /* ClipboardHistoryManager.swift */; };
+		CC0000072E900001000CLIP04 /* ClipboardButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC0000082E900001000CLIP04 /* ClipboardButton.swift */; };
+		CC0000092E900001000CLIP05 /* ClipboardHistoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000A2E900001000CLIP05 /* ClipboardHistoryView.swift */; };
+		CC00000B2E900001000CLIP06 /* ClipboardItemRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC00000C2E900001000CLIP06 /* ClipboardItemRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -309,6 +315,12 @@
 		B1F747F82EC7E94000F841DB /* LottieView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LottieView.swift; sourceTree = "<group>"; };
 		B1FEB4982C7686630066EBBC /* PanGesture.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanGesture.swift; sourceTree = "<group>"; };
 		F38DE6472D8243E2008B5C6D /* BatteryActivityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BatteryActivityManager.swift; sourceTree = "<group>"; };
+		CC0000022E900001000CLIP01 /* ClipboardItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardItem.swift; sourceTree = "<group>"; };
+		CC0000042E900001000CLIP02 /* ClipboardPersistenceService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardPersistenceService.swift; sourceTree = "<group>"; };
+		CC0000062E900001000CLIP03 /* ClipboardHistoryManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardHistoryManager.swift; sourceTree = "<group>"; };
+		CC0000082E900001000CLIP04 /* ClipboardButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardButton.swift; sourceTree = "<group>"; };
+		CC00000A2E900001000CLIP05 /* ClipboardHistoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardHistoryView.swift; sourceTree = "<group>"; };
+		CC00000C2E900001000CLIP06 /* ClipboardItemRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClipboardItemRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -490,6 +502,7 @@
 				B1C448992C97375A001F0858 /* Tips */,
 				14C08BB72C8DE49E000F8AA0 /* Calendar */,
 				9A987A042C73CA66005CA465 /* Shelf */,
+				CC1000012E900001000CLIP01 /* Clipboard */,
 				149E0B982C737D26006418B1 /* Webcam */,
 				B18654312C6F45AE000B926A /* Live activities */,
 				B18654302C6F4590000B926A /* Settings */,
@@ -656,6 +669,51 @@
 				1113ABC42E80E27000EC13B2 /* Views */,
 			);
 			path = Shelf;
+			sourceTree = "<group>";
+		};
+		CC1000012E900001000CLIP01 /* Clipboard */ = {
+			isa = PBXGroup;
+			children = (
+				CC1000022E900001000CLIP01 /* Models */,
+				CC1000032E900001000CLIP02 /* Services */,
+				CC1000042E900001000CLIP03 /* ViewModels */,
+				CC1000052E900001000CLIP04 /* Views */,
+			);
+			path = Clipboard;
+			sourceTree = "<group>";
+		};
+		CC1000022E900001000CLIP01 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				CC0000022E900001000CLIP01 /* ClipboardItem.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		CC1000032E900001000CLIP02 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				CC0000042E900001000CLIP02 /* ClipboardPersistenceService.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		CC1000042E900001000CLIP03 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				CC0000062E900001000CLIP03 /* ClipboardHistoryManager.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		CC1000052E900001000CLIP04 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CC0000082E900001000CLIP04 /* ClipboardButton.swift */,
+				CC00000A2E900001000CLIP05 /* ClipboardHistoryView.swift */,
+				CC00000C2E900001000CLIP06 /* ClipboardItemRow.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		B141C23B2CA5F50900AC8CC8 /* Onboarding */ = {
@@ -1020,6 +1078,12 @@
 				1100290C2E847E2800035A57 /* NSItemProvider+LoadHelpers.swift in Sources */,
 				11CFC6632E09918400748C80 /* MusicControllerSelectionView.swift in Sources */,
 				B1F0A0022E60000100000001 /* BrightnessManager.swift in Sources */,
+				CC0000012E900001000CLIP01 /* ClipboardItem.swift in Sources */,
+				CC0000032E900001000CLIP02 /* ClipboardPersistenceService.swift in Sources */,
+				CC0000052E900001000CLIP03 /* ClipboardHistoryManager.swift in Sources */,
+				CC0000072E900001000CLIP04 /* ClipboardButton.swift in Sources */,
+				CC0000092E900001000CLIP05 /* ClipboardHistoryView.swift in Sources */,
+				CC00000B2E900001000CLIP06 /* ClipboardItemRow.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
